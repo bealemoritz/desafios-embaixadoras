@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Desafio de Junho · Le Moritz Embaixadoras</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --creme:#FAF8F5; --roxo:#402A57; --roxo-escuro:#2C1C3D; --roxo-claro:#6E5191;
+  --lilas:#EDE8F5; --lilas-2:#F4F0FA; --grafite:#1A1A1A; --cinza-txt:#6B6760;
+  --borda:#E9E3DA; --branco:#FFFFFF; --ouro:#C9A24B;
+  --serif:"Fraunces",Georgia,serif; --sans:"DM Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  --max:480px; --radius:18px; --radius-sm:12px;
+  --shadow:0 4px 24px rgba(84,58,120,.08); --shadow-hi:0 8px 32px rgba(84,58,120,.16);
+  --ease:cubic-bezier(.22,.61,.36,1);
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--creme);color:var(--grafite);line-height:1.55;font-size:16px;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+
+.app{max-width:var(--max);margin:0 auto;min-height:100vh;background:var(--creme);position:relative;box-shadow:0 0 60px rgba(84,58,120,.06)}
+@media (min-width:481px){ body{background:#efe9e2;padding:24px 0} .app{min-height:calc(100vh - 48px);border-radius:28px;overflow:hidden} }
+
+.header{position:sticky;top:0;z-index:50;height:60px;display:flex;align-items:center;justify-content:space-between;padding:0 20px;background:rgba(250,248,245,.82);backdrop-filter:saturate(180%) blur(14px);-webkit-backdrop-filter:saturate(180%) blur(14px);border-bottom:1px solid var(--borda)}
+.brand-mark{width:36px;height:36px;border-radius:10px;background:var(--roxo);display:grid;place-items:center;box-shadow:0 2px 8px rgba(64,42,87,.25)}
+.brand-mark span{font-family:var(--serif);color:#fff;font-size:18px;font-weight:600}
+.header .greeting{font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--roxo)}
+
+main{padding:22px 20px 40px}
+.back-btn{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:var(--cinza-txt);margin-bottom:16px}
+
+.challenge-hero{background:var(--lilas);border-radius:var(--radius);padding:26px 20px;text-align:center;margin-bottom:22px}
+.challenge-hero .badge{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--roxo);background:#fff;padding:6px 14px;border-radius:999px;margin-bottom:14px}
+.challenge-hero h1{font-family:var(--serif);font-weight:700;font-size:28px;line-height:1.15;margin-bottom:8px}
+.challenge-hero p{font-size:14px;color:var(--cinza-txt)}
+
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:28px}
+.stat{background:var(--branco);border:1px solid var(--borda);border-radius:var(--radius-sm);padding:14px 8px;text-align:center}
+.stat b{display:block;font-family:var(--serif);font-size:24px;color:var(--roxo);line-height:1}
+.stat span{font-size:10.5px;color:var(--cinza-txt);margin-top:4px;display:block;line-height:1.3}
+
+.block{margin-bottom:26px}
+.block h2{font-family:var(--serif);font-weight:600;font-size:20px;display:flex;align-items:center;gap:8px;margin-bottom:4px}
+.block .block-sub{font-size:13px;color:var(--cinza-txt);margin-bottom:14px}
+
+.winners{display:flex;flex-direction:column;gap:10px}
+.prize{display:flex;align-items:center;gap:14px;padding:14px 16px;border-radius:var(--radius-sm);border:1px solid var(--borda);background:var(--branco)}
+.prize.gold{background:linear-gradient(135deg,#FBF6E9,#FFFDF8);border-color:#EBD9A8}
+.prize .medal{font-size:22px;flex-shrink:0;width:28px;text-align:center}
+.prize .p-info{flex:1;min-width:0}
+.prize .p-place{font-weight:600;font-size:14.5px;overflow-wrap:break-word;word-break:break-word}
+.prize .p-vendas{font-size:12px;color:var(--cinza-txt);margin-top:2px}
+.prize .p-val{font-family:var(--serif);font-size:17px;color:var(--roxo);flex-shrink:0;white-space:nowrap}
+
+.notice{display:flex;gap:12px;align-items:flex-start;padding:16px;border-radius:var(--radius-sm);background:var(--lilas);margin-bottom:28px;font-size:13.5px;line-height:1.55;color:var(--roxo-escuro)}
+.notice .ico{flex-shrink:0;margin-top:1px}
+.notice .ico svg{width:21px;height:21px;color:var(--roxo)}
+
+details{background:var(--branco);border:1px solid var(--borda);border-radius:var(--radius);margin-bottom:10px;overflow:hidden}
+summary{list-style:none;cursor:pointer;padding:15px 16px;display:flex;align-items:center;gap:13px}
+summary::-webkit-details-marker{display:none}
+.sum-icon{width:42px;height:42px;flex-shrink:0;border-radius:12px;background:var(--lilas);display:grid;place-items:center}
+.sum-icon svg{width:21px;height:21px;color:var(--roxo)}
+.sum-text{flex:1;min-width:0}
+.sum-text h3{font-size:14.5px;font-weight:600}
+.sum-text p{font-size:12px;color:var(--cinza-txt);margin-top:2px;line-height:1.4}
+.sum-right{display:flex;align-items:center;gap:8px;flex-shrink:0}
+.sum-count{font-size:11px;font-weight:700;color:var(--roxo);background:var(--lilas);padding:3px 10px;border-radius:999px}
+.chev{color:var(--cinza-txt);transition:transform .2s var(--ease)}
+details[open] .chev{transform:rotate(180deg)}
+.handles{padding:0 16px 16px;display:flex;flex-wrap:wrap;gap:8px}
+.chip{white-space:nowrap;font-size:12.5px;font-weight:500;padding:7px 13px;border-radius:999px;background:var(--creme);border:1px solid var(--borda);color:var(--grafite)}
+
+.footer{text-align:center;padding:36px 0 8px;font-size:11px;color:var(--cinza-txt)}
+.footer .fl{font-family:var(--serif);font-size:15px;color:var(--grafite);margin-bottom:4px}
+.footer a{color:var(--roxo);font-weight:600}
+</style>
+</head>
+<body>
+<div class="app">
+
+  <header class="header">
+    <span class="brand-mark"><span>LM</span></span>
+    <span class="greeting">Embaixadoras</span>
+  </header>
+
+  <main>
+    <a class="back-btn" href="index.html">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg>
+      Todos os desafios
+    </a>
+
+    <div class="challenge-hero">
+      <span class="badge">Resultado final · 22/06 a 05/07</span>
+      <h1>Desafio de Junho</h1>
+      <p>Confira quem foi premiada e o que vale reforçar pro próximo desafio.</p>
+    </div>
+
+    <div class="stats">
+      <div class="stat"><b>65</b><span>participantes</span></div>
+      <div class="stat"><b>11</b><span>premiadas</span></div>
+      <div class="stat"><b>140</b><span>vendas no período</span></div>
+    </div>
+
+    <div class="block">
+      <h2>🏆 Quem venceu o desafio</h2>
+      <p class="block-sub">Bio e Destaque em dia, vendas confirmadas no período. Parabéns, embaixadoras.</p>
+      <div class="winners">
+        <div class="prize gold"><span class="medal">🥇</span><div class="p-info"><div class="p-place"><a href="https://www.instagram.com/andreia_deia71" target="_blank">@andreia_deia71</a></div><div class="p-vendas">34 vendas</div></div><div class="p-val">R$ 500</div></div>
+        <div class="prize gold"><span class="medal">🥇</span><div class="p-info"><div class="p-place"><a href="https://www.instagram.com/isabellavargas_73" target="_blank">@isabellavargas_73</a></div><div class="p-vendas">26 vendas</div></div><div class="p-val">R$ 500</div></div>
+        <div class="prize gold"><span class="medal">🥇</span><div class="p-info"><div class="p-place"><a href="https://www.instagram.com/claudiacasemiroorganiza" target="_blank">@claudiacasemiroorganiza</a></div><div class="p-vendas">21 vendas</div></div><div class="p-val">R$ 500</div></div>
+        <div class="prize gold"><span class="medal">🥇</span><div class="p-info"><div class="p-place"><a href="https://www.instagram.com/almanaquedamulher" target="_blank">@almanaquedamulher</a></div><div class="p-vendas">12 vendas</div></div><div class="p-val">R$ 500</div></div>
+        <div class="prize gold"><span class="medal">🥇</span><div class="p-info"><div class="p-place"><a href="https://www.instagram.com/geneci_modelosenior" target="_blank">@geneci_modelosenior</a></div><div class="p-vendas">10 vendas</div></div><div class="p-val">R$ 500</div></div>
+        <div class="prize"><span class="medal">🥈</span><div class="p-info"><div class="p-place"><a href="https://www.instagram.com/lenebastos_ofc" target="_blank">@lenebastos_ofc</a></div><div class="p-vendas">9 vendas</div></div><div class="p-val">R$ 300</div></div>
+        <div class="prize"><span class="medal">🥉</span><div class="p-info"><div class="p-place"><a href="https://www.instagram.com/priborgesqueen" target="_blank">@priborgesqueen</a></div><div class="p-vendas">6 vendas</div></div><div class="p-val">R$ 200</div></div>
+        <div class="prize"><span class="medal">🥉</span><div class="p-info"><div class="p-place"><a href="https://www.instagram.com/thaismathiass" target="_blank">@thaismathiass</a></div><div class="p-vendas">5 vendas</div></div><div class="p-val">R$ 200</div></div>
+        <div class="prize"><span class="medal">🥉</span><div class="p-info"><div class="p-place"><a href="https://www.instagram.com/eunanideoliveira" target="_blank">@eunanideoliveira</a></div><div class="p-vendas">3 vendas</div></div><div class="p-val">R$ 200</div></div>
+        <div class="prize"><span class="medal">🥉</span><div class="p-info"><div class="p-place"><a href="https://www.instagram.com/ceciliahautzcardozo" target="_blank">@ceciliahautzcardozo</a></div><div class="p-vendas">3 vendas</div></div><div class="p-val">R$ 200</div></div>
+        <div class="prize"><span class="medal">🥉</span><div class="p-info"><div class="p-place"><a href="https://www.instagram.com/elainealberico" target="_blank">@elainealberico</a></div><div class="p-vendas">3 vendas</div></div><div class="p-val">R$ 200</div></div>
+      </div>
+    </div>
+
+    <div class="notice">
+      <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/></svg></span>
+      <div>65 embaixadoras participaram do desafio de junho. Quem não foi premiada dessa vez, vale reforçar o que já explicamos no treinamento: manter o cupom e o @ da Le Moritz fixados na bio, com um Destaque atualizado, é um ajuste essencial pra vender mais. O desafio de junho encerrou, e o de julho vem com regras novas. Fica de olho no grupo.</div>
+    </div>
+
+    <div class="block">
+      <h2>Participou, mas por pouco não levou?</h2>
+      <p class="block-sub">Toque em cada grupo pra ver quem está nele.</p>
+
+      <details>
+        <summary>
+          <span class="sum-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 8h11l1 12.5h-13z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg></span>
+          <span class="sum-text">
+            <h3>Fez os passos certinho, mas não bateu a meta</h3>
+            <p>Bio e Destaque em dia. As vendas do período não atingiram a meta.</p>
+          </span>
+          <span class="sum-right"><span class="sum-count">30</span><svg class="chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span>
+        </summary>
+        <div class="handles">
+          <a class="chip" href="https://www.instagram.com/sonialabriola" target="_blank">@sonialabriola</a>
+          <a class="chip" href="https://www.instagram.com/alessandrazem" target="_blank">@alessandrazem</a>
+          <a class="chip" href="https://www.instagram.com/simoneproenza2" target="_blank">@simoneproenza2</a>
+          <a class="chip" href="https://www.instagram.com/eliane_dichete" target="_blank">@eliane_dichete</a>
+          <a class="chip" href="https://www.instagram.com/janegimenesbeautyacademy" target="_blank">@janegimenesbeautyacademy</a>
+          <a class="chip" href="https://www.instagram.com/claudiattozzi" target="_blank">@claudiattozzi</a>
+          <a class="chip" href="https://www.instagram.com/annekitie" target="_blank">@annekitie</a>
+          <a class="chip" href="https://www.instagram.com/loidealvinoreis" target="_blank">@loidealvinoreis</a>
+          <a class="chip" href="https://www.instagram.com/marlaariani" target="_blank">@marlaariani</a>
+          <a class="chip" href="https://www.instagram.com/clenicecaixeta" target="_blank">@clenicecaixeta</a>
+          <a class="chip" href="https://www.instagram.com/rosefrancoia" target="_blank">@rosefrancoia</a>
+          <a class="chip" href="https://www.instagram.com/Lar.dahanna" target="_blank">@lar.dahanna</a>
+          <a class="chip" href="https://www.instagram.com/munyckcarneiro" target="_blank">@munyckcarneiro</a>
+          <a class="chip" href="https://www.instagram.com/elianaypereira1" target="_blank">@elianaypereira1</a>
+          <a class="chip" href="https://www.instagram.com/pymentadoce.marciasoares" target="_blank">@pymentadoce.marciasoares</a>
+          <a class="chip" href="https://www.instagram.com/az_basic" target="_blank">@az_basic</a>
+          <a class="chip" href="https://www.instagram.com/catiafly" target="_blank">@catiafly</a>
+          <a class="chip" href="https://www.instagram.com/kelly__seraphim" target="_blank">@kelly__seraphim</a>
+          <a class="chip" href="https://www.instagram.com/biaseidel_oficial" target="_blank">@biaseidel_oficial</a>
+          <a class="chip" href="https://www.instagram.com/cris.louzada" target="_blank">@cris.louzada</a>
+          <a class="chip" href="https://www.instagram.com/lucieneeblack" target="_blank">@lucieneeblack</a>
+          <a class="chip" href="https://www.instagram.com/elisandra_ssouza" target="_blank">@elisandra_ssouza</a>
+          <a class="chip" href="https://www.instagram.com/dra.deborahcamargo" target="_blank">@dra.deborahcamargo</a>
+          <a class="chip" href="https://www.instagram.com/milenefonseca" target="_blank">@milenefonseca</a>
+          <a class="chip" href="https://www.instagram.com/belleimagebiju" target="_blank">@belleimagebiju</a>
+          <a class="chip" href="https://www.instagram.com/patricialcampos" target="_blank">@patricialcampos</a>
+          <a class="chip" href="https://www.instagram.com/mesacomcapricho_" target="_blank">@mesacomcapricho_</a>
+          <a class="chip" href="https://www.instagram.com/cinquentaenfrente" target="_blank">@cinquentaenfrente</a>
+          <a class="chip" href="https://www.instagram.com/supassold" target="_blank">@supassold</a>
+          <a class="chip" href="https://www.instagram.com/miriamomesquita" target="_blank">@miriamomesquita</a>
+        </div>
+      </details>
+
+      <details>
+        <summary>
+          <span class="sum-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3.5h10v16l-5-3.5-5 3.5z"/></svg></span>
+          <span class="sum-text">
+            <h3>Faltou o Destaque</h3>
+            <p>Fez a bio certinho, mas não salvou o story no Destaque.</p>
+          </span>
+          <span class="sum-right"><span class="sum-count">1</span><svg class="chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span>
+        </summary>
+        <div class="handles">
+          <a class="chip" href="https://www.instagram.com/soumonicaaraujo" target="_blank">@soumonicaaraujo</a>
+        </div>
+      </details>
+
+      <details>
+        <summary>
+          <span class="sum-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.2"/><path d="M5.5 19.5a6.5 6.5 0 0 1 13 0"/><path d="M8.5 21.5h7"/></svg></span>
+          <span class="sum-text">
+            <h3>Faltou a Bio</h3>
+            <p>Destaque em dia, mas não colocou @ e cupom na bio.</p>
+          </span>
+          <span class="sum-right"><span class="sum-count">9</span><svg class="chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span>
+        </summary>
+        <div class="handles">
+          <a class="chip" href="https://www.instagram.com/lilliamjmorel" target="_blank">@lilliamjmorel</a>
+          <a class="chip" href="https://www.instagram.com/ednalins100_" target="_blank">@ednalins100_</a>
+          <a class="chip" href="https://www.instagram.com/giulaham" target="_blank">@giulaham</a>
+          <a class="chip" href="https://www.instagram.com/elizabethberardo" target="_blank">@elizabethberardo</a>
+          <a class="chip" href="https://www.instagram.com/clarissatrojack" target="_blank">@clarissatrojack</a>
+          <a class="chip" href="https://www.instagram.com/vivianmaciel_" target="_blank">@vivianmaciel_</a>
+          <a class="chip" href="https://www.instagram.com/ruth_efamilia" target="_blank">@ruth_efamilia</a>
+          <a class="chip" href="https://www.instagram.com/selmasoaresrodrigues" target="_blank">@selmasoaresrodrigues</a>
+          <a class="chip" href="https://www.instagram.com/soukellymartins" target="_blank">@soukellymartins</a>
+        </div>
+      </details>
+
+      <details>
+        <summary>
+          <span class="sum-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3.5" width="16" height="17" rx="2.5"/><path d="M8 9h8M8 12.5h8M8 16h5"/></svg></span>
+          <span class="sum-text">
+            <h3>Faltou Bio e Destaque</h3>
+            <p>Os dois primeiros passos do desafio não foram feitos.</p>
+          </span>
+          <span class="sum-right"><span class="sum-count">14</span><svg class="chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span>
+        </summary>
+        <div class="handles">
+          <a class="chip" href="https://www.instagram.com/andreabeltran50mais" target="_blank">@andreabeltran50mais</a>
+          <a class="chip" href="https://www.instagram.com/giroporaii" target="_blank">@giroporaii</a>
+          <a class="chip" href="https://www.instagram.com/morganarassaff" target="_blank">@morganarassaff</a>
+          <a class="chip" href="https://www.instagram.com/eusouamirelle" target="_blank">@eusouamirelle</a>
+          <a class="chip" href="https://www.instagram.com/ninaboiago" target="_blank">@ninaboiago</a>
+          <a class="chip" href="https://www.instagram.com/luqueyrozz" target="_blank">@luqueyrozz</a>
+          <a class="chip" href="https://www.instagram.com/gabriela.dermatologista" target="_blank">@gabriela.dermatologista</a>
+          <a class="chip" href="https://www.instagram.com/fernandabpuccinelli" target="_blank">@fernandabpuccinelli</a>
+          <a class="chip" href="https://www.instagram.com/cinquenteinaopirei" target="_blank">@cinquenteinaopirei</a>
+          <a class="chip" href="https://www.instagram.com/eddygiordanicamicia" target="_blank">@eddygiordanicamicia</a>
+          <a class="chip" href="https://www.instagram.com/clebioneide" target="_blank">@clebioneide</a>
+          <a class="chip" href="https://www.instagram.com/eunice.matuche" target="_blank">@eunice.matuche</a>
+          <a class="chip" href="https://www.instagram.com/maisamsantanna" target="_blank">@maisamsantanna</a>
+          <a class="chip" href="https://www.instagram.com/samiraabdalabrito" target="_blank">@samiraabdalabrito</a>
+        </div>
+      </details>
+    </div>
+
+    <div class="footer">
+      <p class="fl">Le Moritz</p>
+      <p><a href="index.html">Todos os desafios</a></p>
+    </div>
+  </main>
+
+</div>
+</body>
+</html>
